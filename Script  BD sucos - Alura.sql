@@ -144,3 +144,17 @@ INSERT INTO tbproduto (PRODUTO, NOME, EMBALAGEM, TAMANHO, SABOR, PRECO_LISTA) VA
 ('1013793','Videira do Campo - 2 Litros - Cereja/Maça','PET','2 Litros','Cereja/Maça',24.01),
 ('1096818','Linha Refrescante - 700 ml - Manga','Garrafa','700 ml','Manga',7.7105),
 ('1022450','Festival de Sabores - 2 Litros - Açai','PET','2 Litros','Açai',38.012);
+
+
+                                /*Realizando algumas pesquisas com a base de dados que criamos*/
+
+
+SELECT MATRICULA, NOME FROM tabela_de_vendedores /*Nessa consulta aparecerá os campos: nome, matricula da tabela: "tabela_de_vendedores"*/
+
+SELECT CPF, NOME FROM tbcliente LIMIT 10  /*Nos entrega 10 registros dos campos NOME e CPF da tabela "tbcliente" */
+
+SELECT CPF AS CPF_CLIENTE, NOME FROM tbcliente  /*Esse 'AS' permite que troquemos os nome das colunas, nesse caso no resultado da busca ao em vez de aparecer 
+                                                "CPF" no nome da coluna aparecerá "CPF_CLIENTE*/
+
+
+SELECT * FROM tbproduto WHERE EMBALAGEM = 'PET'; /* Essa consulta retorna todos os campos da tabela "tbproduto" cuja a embalagem é "PET*/
