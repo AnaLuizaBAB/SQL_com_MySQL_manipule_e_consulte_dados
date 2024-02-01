@@ -47,7 +47,7 @@ ALTER TABLE tabela_de_vendedores ADD PRIMARY KEY (MATRICULA);
 
 
 ALTER TABLE tbcliente ADD COLUMN (DATA_NASCIMENTO DATE);
-ALTER TABLE tabela_de_vendedores ADD COLUMN (DATA_ADMISSÃO DATE, DE_FERIAS BIT (1)); 
+ALTER TABLE tabela_de_vendedores ADD COLUMN (DATA_ADMISSAO DATE, DE_FERIAS BIT (1)); 
 
 
                         /*Inserindo dados nas tabelas do banco*/
@@ -60,13 +60,6 @@ INSERT INTO tbproduto(
     ('1037797',	'Clean - 2 Litros - Laranja', 'PET', '2 LITROS', 'Laranja',	16.01),
 	('1000889',	'Sabor da Montanha - 700 ml - Uva',	'Garrafa', '700 ml', 'Uva',	6.31),
     ('1004327', 'Videira do Campo - 1,5 Litros - Melancia', 'PET', '1,5 Litros', 'Melancia', 19.51);
-
-
-INSERT INTO tabela_de_vendedores(
-	MATRICULA,NOME,PERCENTUAL_DE_COMISSAO) VALUES 
-    ('00233', 'João Geraldo da Fonseca', 0.10),
-    ('00235', ' Márcio Almeida Silva', 0.08 ),
-	('00236', 'Cláudia Morais', 0.08);
 
 
 INSERT INTO tabela_de_vendedores(MATRICULA, NOME, PERCENTUAL_DE_COMISSAO, DATA_ADMISSÃO, DE_FERIAS)  VALUES 
@@ -149,12 +142,61 @@ INSERT INTO tbproduto (PRODUTO, NOME, EMBALAGEM, TAMANHO, SABOR, PRECO_LISTA) VA
                                 /*Realizando algumas pesquisas com a base de dados que criamos*/
 
 
-SELECT MATRICULA, NOME FROM tabela_de_vendedores /*Nessa consulta aparecerá os campos: nome, matricula da tabela: "tabela_de_vendedores"*/
+SELECT MATRICULA, NOME FROM tabela_de_vendedores; /*Nessa consulta aparecerá os campos: nome, matricula da tabela: "tabela_de_vendedores"*/
 
-SELECT CPF, NOME FROM tbcliente LIMIT 10  /*Nos entrega 10 registros dos campos NOME e CPF da tabela "tbcliente" */
 
-SELECT CPF AS CPF_CLIENTE, NOME FROM tbcliente  /*Esse 'AS' permite que troquemos os nome das colunas, nesse caso no resultado da busca ao em vez de aparecer 
+SELECT CPF, NOME FROM tbcliente LIMIT 10;  /*Nos entrega 10 registros dos campos NOME e CPF da tabela "tbcliente" */
+
+
+SELECT CPF AS CPF_CLIENTE, NOME FROM tbcliente;  /*Esse 'AS' permite que troquemos os nome das colunas, nesse caso no resultado da busca ao em vez de aparecer 
                                                 "CPF" no nome da coluna aparecerá "CPF_CLIENTE*/
 
 
-SELECT * FROM tbproduto WHERE EMBALAGEM = 'PET'; /* Essa consulta retorna todos os campos da tabela "tbproduto" cuja a embalagem é "PET*/
+SELECT * FROM tbproduto WHERE EMBALAGEM = 'PET'; /* Essa consulta retorna todos os campos da tabela "tbproduto" cuja a embalagem é "PET"*/
+
+
+SELECT * FROM tbproduto WHERE SABOR = 'Manga'; /* Essa consulta retorna todos os campos da tabela "tbproduto" cuja a sabor é "Manga"*/
+
+SELECT * FROM tabela_de_vendedores WHERE NOME = 'Cláudia Morais';  /* Essa consulta retorna todos os campos da tabela "tabela_de_vendedores" cujo nome do funcionário 
+                                                                     é "Cláudia Morais"*/
+
+
+
+SELECT * FROM tbcliente WHERE IDADE = 11; /* Essa consulta retorna todos os campos da tabela "tbcliente" cuja idade é igual a 11 anos, nesse caso a consulta nos dará
+                                            um resultado vazio*/.
+
+SELECT * FROM tbcliente WHERE IDADE = 22; /* Essa consulta retorna todos os campos da tabela "tbcliente" cuja idade é igual a 22 anos*/
+
+SELECT * FROM tbcliente WHERE IDADE >= 22; /* Essa consulta retorna todos os campos da tabela "tbcliente" cuja idade é maior ou igual a 22 anos*/
+
+SELECT * FROM tbcliente WHERE BAIRRO <> 'Jardins'; /* Essa consulta retorna todos os campos da tabela "tbcliente" cujo nome do Bairro seja diferente de 'Jardins' */
+
+SELECT * FROM tbcliente WHERE NOME > 'Fernando Cavalcante'; /* Essa consulta retorna todos os campos da tabela "tbcliente" cujo nome, considerando a ordem alfabética,
+                                                             comece com qualquer letra após a letra "F" */
+
+SELECT * FROM tabela_de_vendedores WHERE PERCENTUAL_DE_COMISSAO > 0.10 /*  Essa consulta retorna todos os campos da tabela "tbcliente" cujo percentual de comissão
+                                                                        é maior que 10% */
+
+
+SELECT NOME, CPF, DATA_NASCIMENTO FROM tbcliente WHERE DATA_NASCIMENTO >= '1994-07-19'; /*  Essa consulta retorna os campos nome, cpf e data de nascimento da tabela
+                                                                                        "tbcliente" cuja data de nascimento é maior ou igual a '1994-07-19' */
+
+SELECT * FROM tbcliente WHERE YEAR(DATA_NASCIMENTO) > 1994; /*Esse YEAR é uma função. Nessa consulta teremos como resultado todos os campos da tabela "tbcliente"
+                                                            cujo ano de nascimento é posterior a 1994*/
+
+
+SELECT * FROM tbcliente WHERE MONTH(DATA_NASCIMENTO) = 02 ; /* Esse MONTH tambem é uma função. Nessa consulta teremos como resultado todos os campos da tabela "tbcliente"
+                                                            que fazem aniversário no mês de fevereiro. */
+
+SELECT * FROM tabela_de_vendedores WHERE YEAR(DATA_ADMISSAO) >= 2016 ; /*Essa consulta retorna quais são os vendedores que foram admitidos da empresa a partir de 2016*/
+
+SELECT * FROM tbproduto WHERE
+EMBALAGEM = 'PET' AND TAMANHO = '1 Litro'; /* Aqui a consulta nos mostrará todos os campos da tabela 'tbproduto' cuja embalagem seja 'PET' e o tamanho seja de '1 Litro'*/
+
+
+SELECT  * FROM tbcliente WHERE 
+BAIRRO = 'Jardins' OR BAIRRO = 'Vila Roman'; /* Aqui a consulta nos mostrará todos os campos da tabela 'tbcliente' cujo Bairro seja 'Jardins' ou 'Vila Roman'*/
+
+SELECT * FROM tabela_de_vendedores WHERE DE_FERIAS = 1 AND YEAR(DATA_ADMISSAO) < 2016; /* Essa consulta irá nos restornar quais são os vendedores que estão de férias
+                                                                                         e que foram admitidos antes de 2016*/
+
